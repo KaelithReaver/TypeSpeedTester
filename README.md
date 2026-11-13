@@ -1,8 +1,7 @@
 TypeMetrics — Interactive Typing Speed & Accuracy Tester
 A zero-dependency, real-time DOM typing assessment engine built strictly with vanilla HTML5, CSS3, and JavaScript. Inspired by modern minimalist interfaces and customizable typing platforms, TypeMetrics evaluates keystroke accuracy and Words Per Minute (WPM) in real time.
 Live Demo & Repository
-Live Deployment (Vercel): Add Your Vercel URL Here
-GitHub Repository: Add Your GitHub Repo URL Here
+Live Deployment (Vercel):(https://typespeedtest-six.vercel.app/)
 ---
 Core Engineering Architecture
 1. Dual-Layer DOM Interface (`<span>` Splitting)
