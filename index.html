@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>TypeMetrics — Elite Minimal DOM Typing Engine</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body data-theme="carbon">
+  <main class="app-container">
+    <header class="app-header">
+      <div class="brand">
+        <span class="brand-dot b-blue"></span>
+        <span class="brand-dot b-red"></span>
+        <span class="brand-dot b-yellow"></span>
+        <span class="brand-dot b-green"></span>
+        <h1>TypeMetrics</h1>
+      </div>
+      <p class="subtitle">Customize, start typing, and check your raw metrics</p>
+    </header>
+
+    <!-- Interactive Monkeytype Settings Panel -->
+    <section class="settings-bar" aria-label="Settings configuration toolbar">
+      <!-- Time selector -->
+      <div class="setting-group">
+        <span class="setting-title">Time</span>
+        <div class="toggle-buttons" id="time-toggles">
+          <button type="button" data-value="15">15</button>
+          <button type="button" data-value="30">30</button>
+          <button type="button" data-value="60" class="active">60</button>
+          <button type="button" data-value="120">120</button>
+        </div>
+      </div>
+
+      <!-- Caret config -->
+      <div class="setting-group">
+        <span class="setting-title">Caret</span>
+        <div class="toggle-buttons" id="caret-toggles">
+          <button type="button" data-value="line" class="active">line</button>
+          <button type="button" data-value="block">block</button>
+          <button type="button" data-value="underline">underline</button>
+        </div>
+      </div>
+
+      <!-- Live Theme options -->
+      <div class="setting-group">
+        <span class="setting-title">Theme</span>
+        <div class="toggle-buttons" id="theme-toggles">
+          <button type="button" data-value="carbon" class="active">Carbon</button>
+          <button type="button" data-value="cyber">Cyber</button>
+          <button type="button" data-value="forest">Forest</button>
+          <button type="button" data-value="sakura">Sakura</button>
+          <button type="button" data-value="retro">Retro</button>
+        </div>
+      </div>
+
+      <!-- Typography adjustments -->
+      <div class="setting-group">
+        <span class="setting-title">Size</span>
+        <div class="toggle-buttons" id="size-toggles">
+          <button type="button" data-value="small">S</button>
+          <button type="button" data-value="medium" class="active">M</button>
+          <button type="button" data-value="large">L</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- Dynamic Stats -->
+    <section class="telemetry-grid" aria-label="Assessment progress analytics">
+      <div class="stat-card timer-card">
+        <span class="stat-label">Time Remaining</span>
+        <div class="stat-value"><span id="time-left">60</span><small>s</small></div>
+      </div>
+      <div class="stat-card mistakes-card">
+        <span class="stat-label">Mistakes</span>
+        <div class="stat-value" id="mistakes">0</div>
+      </div>
+      <div class="stat-card wpm-card">
+        <span class="stat-label">Net WPM</span>
+        <div class="stat-value" id="wpm">0</div>
+      </div>
+      <div class="stat-card accuracy-card">
+        <span class="stat-label">Accuracy</span>
+        <div class="stat-value"><span id="accuracy">100</span><small>%</small></div>
+      </div>
+    </section>
+
+    <!-- Typing Arena & Content Area -->
+    <section class="typing-card" id="typing-card" tabindex="0">
+      <input 
+        type="text" 
+        id="hidden-input" 
+        class="hidden-input" 
+        autocomplete="off" 
+        autocorrect="off" 
+        autocapitalize="off" 
+        spellcheck="false"
+        aria-label="Typing test interface"
+      >
+      <div id="quote-display" class="quote-display medium-text caret-line"></div>
+    </section>
+
+    <!-- Action footer -->
+    <footer class="controls">
+      <button id="restart-btn" class="btn-primary" type="button">
+        Restart Assessment
+      </button>
+    </footer>
+  </main>
+
+  <script src="script.js"></script>
+</body>
+</html>

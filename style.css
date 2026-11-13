@@ -1,0 +1,376 @@
+/* Color Palette Presets mapped to the data-theme attribute */
+body[data-theme="carbon"] {
+  --bg-page: #1e1e2e;
+  --bg-surface: #252538;
+  --text-primary: #cdd6f4;
+  --text-secondary: #6c7086;
+  --text-untyped: #45475a;
+  --border-subtle: #313244;
+  --accent-blue: #89b4fa;
+  --glow-color: rgba(137, 180, 250, 0.4);
+  --color-correct: #a6e3a1;
+  --color-incorrect: #f38ba8;
+  --bg-incorrect: rgba(243, 139, 168, 0.15);
+  --theme-neon: #89b4fa;
+}
+
+body[data-theme="cyber"] {
+  --bg-page: #0d0e15;
+  --bg-surface: #141622;
+  --text-primary: #00ffff;
+  --text-secondary: #7b2cbf;
+  --text-untyped: #341254;
+  --border-subtle: #240046;
+  --accent-blue: #ff007f;
+  --glow-color: rgba(255, 0, 127, 0.5);
+  --color-correct: #39ff14;
+  --color-incorrect: #ff0055;
+  --bg-incorrect: rgba(255, 0, 85, 0.2);
+  --theme-neon: #ff007f;
+}
+
+body[data-theme="forest"] {
+  --bg-page: #1a1c1a;
+  --bg-surface: #222622;
+  --text-primary: #dbf9db;
+  --text-secondary: #587258;
+  --text-untyped: #364436;
+  --border-subtle: #2d382d;
+  --accent-blue: #8fbc8f;
+  --glow-color: rgba(143, 188, 143, 0.4);
+  --color-correct: #a3e2a3;
+  --color-incorrect: #ff8b8b;
+  --bg-incorrect: rgba(255, 139, 139, 0.15);
+  --theme-neon: #8fbc8f;
+}
+
+body[data-theme="sakura"] {
+  --bg-page: #1f1418;
+  --bg-surface: #2a1b21;
+  --text-primary: #ffe6eb;
+  --text-secondary: #8c6070;
+  --text-untyped: #4c303c;
+  --border-subtle: #3d242e;
+  --accent-blue: #ff85a2;
+  --glow-color: rgba(255, 133, 162, 0.4);
+  --color-correct: #ffccd5;
+  --color-incorrect: #e03030;
+  --bg-incorrect: rgba(224, 48, 48, 0.18);
+  --theme-neon: #ff85a2;
+}
+
+body[data-theme="retro"] {
+  --bg-page: #000000;
+  --bg-surface: #0a0a0a;
+  --text-primary: #00ff00;
+  --text-secondary: #006400;
+  --text-untyped: #003300;
+  --border-subtle: #004d00;
+  --accent-blue: #00ff00;
+  --glow-color: rgba(0, 255, 0, 0.5);
+  --color-correct: #80ff80;
+  --color-incorrect: #ff3333;
+  --bg-incorrect: rgba(255, 51, 51, 0.25);
+  --theme-neon: #00ff00;
+}
+
+/* Base Styles */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+  background-color: var(--bg-page);
+  color: var(--text-primary);
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+  -webkit-font-smoothing: antialiased;
+  transition: background-color 0.4s ease;
+}
+
+.app-container {
+  width: 100%;
+  max-width: 860px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+/* Header & Identity */
+.app-header {
+  text-align: center;
+}
+
+.brand {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.brand h1 {
+  font-size: 1.6rem;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  margin-left: 6px;
+  color: var(--text-primary);
+}
+
+.brand-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+}
+.brand-dot.b-blue { background-color: #1a73e8; }
+.brand-dot.b-red { background-color: #d93025; }
+.brand-dot.b-yellow { background-color: #f9ab00; }
+.brand-dot.b-green { background-color: #1e8e3e; }
+
+.subtitle {
+  font-size: 0.85rem;
+  color: var(--text-secondary);
+  margin-top: 4px;
+}
+
+/* Interactive Config / Settings Bar */
+.settings-bar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+  justify-content: space-between;
+  background: var(--bg-surface);
+  border: 1px solid var(--border-subtle);
+  border-radius: 12px;
+  padding: 10px 18px;
+}
+
+.setting-group {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.setting-title {
+  font-size: 0.68rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  font-weight: 600;
+  color: var(--text-secondary);
+}
+
+.toggle-buttons {
+  display: flex;
+  background: var(--bg-page);
+  padding: 2px;
+  border-radius: 6px;
+}
+
+.toggle-buttons button {
+  background: transparent;
+  color: var(--text-secondary);
+  border: none;
+  font-size: 0.72rem;
+  font-weight: 500;
+  padding: 4px 10px;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.toggle-buttons button.active {
+  background: var(--accent-blue);
+  color: var(--bg-page);
+  font-weight: 600;
+}
+
+.toggle-buttons button:hover:not(.active) {
+  color: var(--text-primary);
+}
+
+/* Metric Display Cards */
+.telemetry-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 16px;
+}
+
+.stat-card {
+  background: var(--bg-surface);
+  border: 1px solid var(--border-subtle);
+  border-radius: 12px;
+  padding: 12px 18px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  transition: transform 0.2s ease, border-color 0.2s ease;
+}
+
+.stat-card:hover {
+  border-color: var(--accent-blue);
+  box-shadow: 0 0 10px var(--glow-color);
+}
+
+.stat-label {
+  font-size: 0.7rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--text-secondary);
+}
+
+.stat-value {
+  font-size: 1.8rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  font-variant-numeric: tabular-nums;
+}
+
+.stat-value small {
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: var(--text-secondary);
+  margin-left: 2px;
+}
+
+/* Focus and Arena Styles */
+.typing-card {
+  position: relative;
+  background: var(--bg-surface);
+  border: 1px solid var(--border-subtle);
+  border-radius: 16px;
+  padding: 30px;
+  cursor: text;
+  min-height: 160px;
+  display: flex;
+  align-items: center;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.typing-card:focus, .typing-card:focus-within {
+  outline: none;
+  border-color: var(--accent-blue);
+  box-shadow: 0 0 15px var(--glow-color);
+}
+
+.hidden-input {
+  position: absolute;
+  opacity: 0;
+  pointer-events: none;
+  width: 0;
+  height: 0;
+}
+
+/* Typographic Display */
+.quote-display {
+  font-family: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, monospace;
+  line-height: 1.7;
+  letter-spacing: 0.02em;
+  color: var(--text-untyped);
+  user-select: none;
+  word-wrap: break-word;
+}
+
+/* Interactive Font scale controls */
+.quote-display.small-text  { font-size: 1.1rem; }
+.quote-display.medium-text { font-size: 1.35rem; }
+.quote-display.large-text  { font-size: 1.65rem; }
+
+.quote-display span {
+  position: relative;
+  transition: color 0.1s ease, background-color 0.1s ease;
+}
+
+/* Evaluation color markers */
+.quote-display span.correct {
+  color: var(--color-correct);
+}
+
+.quote-display span.incorrect {
+  color: var(--color-incorrect);
+  background-color: var(--bg-incorrect);
+  border-bottom: 2px dashed var(--color-incorrect);
+}
+
+/* Configurable Carets */
+.quote-display span.active::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  background-color: var(--accent-blue);
+  animation: blinkCaret 0.85s steps(2, start) infinite;
+}
+
+/* Option A - line caret (Vertical line) */
+.quote-display.caret-line span.active::before {
+  top: 10%;
+  height: 80%;
+  width: 2.5px;
+}
+
+/* Option B - block caret */
+.quote-display.caret-block span.active::before {
+  top: 0;
+  height: 100%;
+  width: 100%;
+  opacity: 0.45;
+  background-color: var(--accent-blue);
+  z-index: -1;
+}
+
+/* Option C - underline caret */
+.quote-display.caret-underline span.active::before {
+  bottom: 0;
+  height: 3px;
+  width: 100%;
+}
+
+@keyframes blinkCaret {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0; }
+}
+
+/* Controls / Submit Actions */
+.controls {
+  display: flex;
+  justify-content: center;
+}
+
+.btn-primary {
+  background-color: var(--accent-blue);
+  color: var(--bg-page);
+  font-family: inherit;
+  font-size: 0.85rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  padding: 12px 30px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: transform 0.15s ease, background-color 0.15s ease;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.btn-primary:hover {
+  opacity: 0.95;
+  box-shadow: 0 0 10px var(--glow-color);
+}
+
+.btn-primary:active {
+  transform: scale(0.98);
+}
+
+@media (max-width: 640px) {
+  .telemetry-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .settings-bar {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+}
