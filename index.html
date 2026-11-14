@@ -1,112 +1,256 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="carbon" data-caret="line" data-size="md">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>TypeMetrics — Elite Minimal DOM Typing Engine</title>
-  <link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>typecraft — minimalist typing speed tester</title>
+  <link rel="stylesheet" href="style.css" />
 </head>
-<body data-theme="carbon">
-  <main class="app-container">
-    <header class="app-header">
-      <div class="brand">
-        <span class="brand-dot b-blue"></span>
-        <span class="brand-dot b-red"></span>
-        <span class="brand-dot b-yellow"></span>
-        <span class="brand-dot b-green"></span>
-        <h1>TypeMetrics</h1>
+<body>
+  <div class="app-shell" id="appShell">
+    <!-- Top Header & Customization Bar -->
+    <header class="top-bar fade-on-type">
+      <div class="brand" id="brandHome" title="Restart test">
+        <svg class="brand-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <rect x="2" y="6" width="20" height="12" rx="2.5"></rect>
+          <path d="M6 10h.01M10 10h.01M14 10h.01M18 10h.01M8 14h8"></path>
+        </svg>
+        <div class="brand-text">
+          <span class="brand-name">typecraft</span>
+          <span class="brand-tag">dom speed engine</span>
+        </div>
       </div>
-      <p class="subtitle">Customize, start typing, and check your raw metrics</p>
+
+      <nav class="config-bar" aria-label="Test Configuration">
+        <!-- Timer Duration -->
+        <div class="config-group" role="group" aria-label="Timer Duration">
+          <span class="config-label">time</span>
+          <button type="button" class="cfg-btn" data-time="15">15s</button>
+          <button type="button" class="cfg-btn active" data-time="30">30s</button>
+          <button type="button" class="cfg-btn" data-time="60">60s</button>
+          <button type="button" class="cfg-btn" data-time="120">120s</button>
+        </div>
+
+        <span class="config-divider" aria-hidden="true"></span>
+
+        <!-- Mode / Corpus Filter -->
+        <div class="config-group" role="group" aria-label="Passage Mode">
+          <span class="config-label">mode</span>
+          <button type="button" class="cfg-btn active" data-mode="standard" title="Balanced everyday & literary sentences">prose</button>
+          <button type="button" class="cfg-btn" data-mode="technical" title="Engineering, science & code-flavored sentences">tech</button>
+          <button type="button" class="cfg-btn" data-mode="lowercase" title="No capitals or heavy punctuation">chill</button>
+        </div>
+
+        <span class="config-divider" aria-hidden="true"></span>
+
+        <!-- Caret Style -->
+        <div class="config-group" role="group" aria-label="Caret Style">
+          <span class="config-label">caret</span>
+          <button type="button" class="cfg-btn active" data-caret-opt="line" title="Vertical bar caret">|</button>
+          <button type="button" class="cfg-btn" data-caret-opt="block" title="Block caret">█</button>
+          <button type="button" class="cfg-btn" data-caret-opt="underline" title="Underline caret">_</button>
+        </div>
+
+        <span class="config-divider" aria-hidden="true"></span>
+
+        <!-- Font Size -->
+        <div class="config-group" role="group" aria-label="Font Size">
+          <span class="config-label">size</span>
+          <button type="button" class="cfg-btn" data-size-opt="sm">S</button>
+          <button type="button" class="cfg-btn active" data-size-opt="md">M</button>
+          <button type="button" class="cfg-btn" data-size-opt="lg">L</button>
+        </div>
+
+        <span class="config-divider" aria-hidden="true"></span>
+
+        <!-- Theme Switcher -->
+        <div class="config-group theme-group" role="group" aria-label="Theme Switcher">
+          <span class="config-label">theme</span>
+          <button type="button" class="theme-chip active" data-theme-opt="carbon" title="Carbon">
+            <span class="swatch swatch-carbon"></span>carbon
+          </button>
+          <button type="button" class="theme-chip" data-theme-opt="cyber" title="Cyber">
+            <span class="swatch swatch-cyber"></span>cyber
+          </button>
+          <button type="button" class="theme-chip" data-theme-opt="forest" title="Forest">
+            <span class="swatch swatch-forest"></span>forest
+          </button>
+          <button type="button" class="theme-chip" data-theme-opt="sakura" title="Sakura">
+            <span class="swatch swatch-sakura"></span>sakura
+          </button>
+          <button type="button" class="theme-chip" data-theme-opt="retro" title="Retro">
+            <span class="swatch swatch-retro"></span>retro
+          </button>
+        </div>
+
+        <span class="config-divider" aria-hidden="true"></span>
+
+        <!-- Utility Toggles -->
+        <div class="config-group" role="group" aria-label="Audio and Focus">
+          <button type="button" class="cfg-btn icon-toggle" id="soundToggle" title="Toggle mechanical key sound (Web Audio)" aria-pressed="false">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon>
+              <path class="sound-waves" d="M15.54 8.46a5 5 0 0 1 0 7.07M19.07 4.93a10 10 0 0 1 0 14.14"></path>
+            </svg>
+            <span>sfx</span>
+          </button>
+        </div>
+      </nav>
     </header>
 
-    <!-- Interactive Monkeytype Settings Panel -->
-    <section class="settings-bar" aria-label="Settings configuration toolbar">
-      <!-- Time selector -->
-      <div class="setting-group">
-        <span class="setting-title">Time</span>
-        <div class="toggle-buttons" id="time-toggles">
-          <button type="button" data-value="15">15</button>
-          <button type="button" data-value="30">30</button>
-          <button type="button" data-value="60" class="active">60</button>
-          <button type="button" data-value="120">120</button>
-        </div>
+    <!-- Live Telemetry Ribbon -->
+    <section class="telemetry-ribbon" aria-label="Live Typing Telemetry">
+      <div class="telemetry-card">
+        <span class="tele-label">WPM</span>
+        <span class="tele-value accent" id="liveWpm">0</span>
+        <span class="tele-sub" id="liveRawWpm">raw 0</span>
       </div>
-
-      <!-- Caret config -->
-      <div class="setting-group">
-        <span class="setting-title">Caret</span>
-        <div class="toggle-buttons" id="caret-toggles">
-          <button type="button" data-value="line" class="active">line</button>
-          <button type="button" data-value="block">block</button>
-          <button type="button" data-value="underline">underline</button>
-        </div>
+      <div class="telemetry-card">
+        <span class="tele-label">ACCURACY</span>
+        <span class="tele-value" id="liveAcc">100%</span>
+        <span class="tele-sub" id="liveChars">0 / 0 chars</span>
       </div>
-
-      <!-- Live Theme options -->
-      <div class="setting-group">
-        <span class="setting-title">Theme</span>
-        <div class="toggle-buttons" id="theme-toggles">
-          <button type="button" data-value="carbon" class="active">Carbon</button>
-          <button type="button" data-value="cyber">Cyber</button>
-          <button type="button" data-value="forest">Forest</button>
-          <button type="button" data-value="sakura">Sakura</button>
-          <button type="button" data-value="retro">Retro</button>
-        </div>
+      <div class="telemetry-card">
+        <span class="tele-label">TIME</span>
+        <span class="tele-value" id="liveTime">30s</span>
+        <span class="tele-sub" id="pbBadge">best 0 wpm</span>
       </div>
-
-      <!-- Typography adjustments -->
-      <div class="setting-group">
-        <span class="setting-title">Size</span>
-        <div class="toggle-buttons" id="size-toggles">
-          <button type="button" data-value="small">S</button>
-          <button type="button" data-value="medium" class="active">M</button>
-          <button type="button" data-value="large">L</button>
-        </div>
+      <div class="telemetry-card">
+        <span class="tele-label">MISTAKES</span>
+        <span class="tele-value" id="liveMistakes">0</span>
+        <span class="tele-sub" id="liveStreak">streak 0</span>
       </div>
     </section>
 
-    <!-- Dynamic Stats -->
-    <section class="telemetry-grid" aria-label="Assessment progress analytics">
-      <div class="stat-card timer-card">
-        <span class="stat-label">Time Remaining</span>
-        <div class="stat-value"><span id="time-left">60</span><small>s</small></div>
+    <!-- Status Indicators (Caps Lock / Progress Bar) -->
+    <div class="status-strip">
+      <div class="progress-track" aria-hidden="true">
+        <div class="progress-fill" id="timerProgress"></div>
       </div>
-      <div class="stat-card mistakes-card">
-        <span class="stat-label">Mistakes</span>
-        <div class="stat-value" id="mistakes">0</div>
+      <div class="status-pills">
+        <span class="status-pill hidden" id="capsLockWarning">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="13" height="13">
+            <path d="M12 19V5M5 12l7-7 7 7"></path>
+          </svg>
+          CAPS LOCK ON
+        </span>
+        <span class="status-pill subtle fade-on-type" id="sentenceTopic">topic: general</span>
       </div>
-      <div class="stat-card wpm-card">
-        <span class="stat-label">Net WPM</span>
-        <div class="stat-value" id="wpm">0</div>
-      </div>
-      <div class="stat-card accuracy-card">
-        <span class="stat-label">Accuracy</span>
-        <div class="stat-value"><span id="accuracy">100</span><small>%</small></div>
-      </div>
-    </section>
+    </div>
 
-    <!-- Typing Arena & Content Area -->
-    <section class="typing-card" id="typing-card" tabindex="0">
-      <input 
-        type="text" 
-        id="hidden-input" 
-        class="hidden-input" 
-        autocomplete="off" 
-        autocorrect="off" 
-        autocapitalize="off" 
-        spellcheck="false"
-        aria-label="Typing test interface"
-      >
-      <div id="quote-display" class="quote-display medium-text caret-line"></div>
-    </section>
+    <!-- Main Typing Arena -->
+    <main class="arena-container" id="arenaContainer">
+      <!-- Active Typing Box -->
+      <section class="typing-stage" id="typingStage" tabindex="0" aria-label="Typing Arena. Start typing to begin the test.">
+        <!-- Hidden mobile/IME input proxy -->
+        <input
+          type="text"
+          id="hiddenInput"
+          class="hidden-input"
+          autocomplete="off"
+          autocapitalize="off"
+          autocorrect="off"
+          spellcheck="false"
+          aria-label="Typing input"
+        />
 
-    <!-- Action footer -->
-    <footer class="controls">
-      <button id="restart-btn" class="btn-primary" type="button">
-        Restart Assessment
-      </button>
+        <div class="blur-overlay" id="blurOverlay">
+          <div class="blur-prompt">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="18" height="18">
+              <path d="M5 12h14M12 5l7 7-7 7"></path>
+            </svg>
+            <span>Click here or press any key to focus</span>
+          </div>
+        </div>
+
+        <div class="passage-viewport" id="passageViewport">
+          <div class="passage-content" id="passageContent" aria-live="off"></div>
+        </div>
+      </section>
+
+      <!-- End-of-Test Results Panel -->
+      <section class="results-panel hidden" id="resultsPanel" aria-live="polite">
+        <div class="results-header">
+          <div>
+            <span class="results-kicker">TEST COMPLETE</span>
+            <h2 class="results-title" id="resultsHeadline">Session Summary</h2>
+          </div>
+          <div class="results-badges" id="resultsBadges"></div>
+        </div>
+
+        <div class="results-grid">
+          <div class="result-hero-card">
+            <span class="res-label">FINAL WPM</span>
+            <span class="res-hero-val" id="resFinalWpm">0</span>
+            <span class="res-sub" id="resRawWpm">raw wpm: 0</span>
+          </div>
+          <div class="result-hero-card">
+            <span class="res-label">ACCURACY</span>
+            <span class="res-hero-val" id="resFinalAcc">100%</span>
+            <span class="res-sub" id="resConsistency">consistency: 0%</span>
+          </div>
+          <div class="result-chart-card">
+            <div class="chart-header">
+              <span class="res-label">WPM TIMELINE</span>
+              <span class="res-sub" id="resPeakWpm">peak: 0 wpm</span>
+            </div>
+            <svg class="wpm-chart" id="wpmChart" viewBox="0 0 420 110" preserveAspectRatio="none" aria-label="WPM over time chart"></svg>
+          </div>
+        </div>
+
+        <div class="results-breakdown">
+          <div class="breakdown-item">
+            <span class="bd-label">characters</span>
+            <span class="bd-val" id="resCharsBreakdown" title="correct / incorrect / corrected">0 / 0 / 0</span>
+          </div>
+          <div class="breakdown-item">
+            <span class="bd-label">mistakes</span>
+            <span class="bd-val" id="resMistakes">0</span>
+          </div>
+          <div class="breakdown-item">
+            <span class="bd-label">best streak</span>
+            <span class="bd-val" id="resBestStreak">0 chars</span>
+          </div>
+          <div class="breakdown-item">
+            <span class="bd-label">test config</span>
+            <span class="bd-val" id="resConfigSummary">30s • prose</span>
+          </div>
+          <div class="breakdown-item">
+            <span class="bd-label">personal best</span>
+            <span class="bd-val accent" id="resPersonalBest">0 wpm</span>
+          </div>
+        </div>
+      </section>
+
+      <!-- Action Controls -->
+      <div class="controls-bar">
+        <button type="button" class="restart-btn" id="restartBtn" title="Restart Test (Tab or Escape)">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M3 12a9 9 0 1 0 3-6.7L3 8"></path>
+            <path d="M3 3v5h5"></path>
+          </svg>
+          <span>Restart Test</span>
+        </button>
+
+        <button type="button" class="secondary-btn hidden" id="nextPassageBtn" title="Load a new random passage">
+          <span>New Passage</span>
+        </button>
+      </div>
+    </main>
+
+    <!-- Minimal Footer Hints -->
+    <footer class="bottom-hints fade-on-type">
+      <div class="hint-group">
+        <kbd>Tab</kbd> <span>or</span> <kbd>Esc</kbd> <span>— restart test</span>
+      </div>
+      <div class="hint-group">
+        <kbd>Backspace</kbd> <span>— correct character</span>
+      </div>
+      <div class="hint-group">
+        <span id="corpusCountHint">72+ curated passages</span>
+      </div>
     </footer>
-  </main>
+  </div>
 
   <script src="script.js"></script>
 </body>
